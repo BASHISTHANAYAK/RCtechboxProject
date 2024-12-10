@@ -3,15 +3,12 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import recordRoutes from "./routes/records.js"
-dotenv.config();
-
 
 const app = express();
-
-// Middleware
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
+dotenv.config();
 // Routes
 app.use('/api/records', recordRoutes);
 

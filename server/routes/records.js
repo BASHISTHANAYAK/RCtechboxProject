@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
 
     }
     const record = await recordModel.create({ name, email, age });
-    res.status(201).json(record);
+    res.status(201).json({ message: "a new record added", record });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -22,7 +22,23 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const records = await recordModel.find();
-    res.json(records);
+    res.status(200).json({ message: "all records", records });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// get record by id
+router.get('/getaRecord/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const record = await recordModel.findById(id);
+    if (!record) {
+      return res.status(404).json({ message: "record not found" });
+
+    }
+    res.status(200).json({ message: "get the record by id", record });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -34,7 +50,7 @@ router.put('/:id', async (req, res) => {
   const { name, email, age } = req.body;
   try {
     const record = await recordModel.findByIdAndUpdate(id, { name, email, age }, { new: true });
-    res.json(record);
+    res.status(200).json({ message: "record updated", record });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -45,7 +61,7 @@ router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {
     await recordModel.findByIdAndDelete(id);
-    res.json({ message: 'Record deleted successfully' });
+    res.status(200).json({ message: 'Record deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
