@@ -22,6 +22,9 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const records = await recordModel.find();
+    if (!records) {
+      return res.status(400).json({ message: "can't  access records" });
+    }
     res.status(200).json({ message: "all records", records });
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -1,9 +1,8 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import CreateRecord from './components/CreateRecord';
 import EditRecord from './components/EditRecord';
 import RecordList from './components/RecordList';
-
+import "./App.css"
 const App = () => {
   return (
     <Router>

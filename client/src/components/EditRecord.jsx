@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { api } from '../../config/api';
 
 const EditRecord = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const EditRecord = () => {
   useEffect(() => {
     const fetchRecord = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/records/getaRecord/${id}`);
+        const { data } = await axios.get(`${api}/api/records/getaRecord/${id}`);
         console.log("EditRecord data-", data.record)
         setFormData(data.record);
       } catch (error) {
@@ -27,7 +28,7 @@ const EditRecord = () => {
     console.log("new data:-", formData)
     try {
 
-      let result = await axios.put(`http://localhost:5000/api/records/${id}`, formData);
+      let result = await axios.put(`${api}/api/records/${id}`, formData);
       if (result.status === 200) {
         console.log("Edited the data-", result.data.message)
         alert(result.data.message)

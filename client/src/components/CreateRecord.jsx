@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { api } from '../../config/api';
 
 const CreateRecord = () => {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const CreateRecord = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let res = await axios.post('http://localhost:5000/api/records', formData);
+      let res = await axios.post(`${api}/api/records`, formData);
       alert(res.data.message || 'a record has been created')
       // navigate('/'); // Navigate back to home after adding record
     } catch (error) {
